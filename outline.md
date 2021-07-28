@@ -3,25 +3,26 @@ Job :
     - location
     - job type
     - description
-    - published at
+    - published on
     - Vacancy
     - salary
     - category
     - experience 
-    
-
-    - apply job 
+    .
+    .
+    - apply for the job 
     - post job
 
 
 Blog : 
     - title
     - description 
-    - created_at
+    - created on
     - category
     - tags
     - author
-
+    .
+    .
     - search
     - comment
     - recent posts
@@ -31,4 +32,4 @@ contact
 
 home
 
-login 
+login >> accounts
