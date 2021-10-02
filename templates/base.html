@@ -55,20 +55,14 @@
                                         <ul id="navigation">
                                             <li><a href="index.html">home</a></li>
                                             <li><a href="{% url 'jobs' %}">Browse Job</a></li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="candidate.html">Candidates </a></li>
-                                                    <li><a href="job_details.html">job details </a></li>
-                                                    <li><a href="elements.html">elements</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">blog</a></li>
-                                                    <li><a href="single-blog.html">single-blog</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
+<!--                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>-->
+<!--                                                <ul class="submenu">-->
+<!--                                                    <li><a href="blog.html">blog</a></li>-->
+<!--                                                    <li><a href="single-blog.html">single-blog</a></li>-->
+<!--                                                </ul>-->
+<!--                                            </li>-->   <!-- TODO -->
+                                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                                            <li><a href="#!">About</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -76,7 +70,15 @@
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment">
                                     <div class="phone_num d-none d-xl-block">
-                                        <a href="#">Log in</a>
+                                          <ul>
+                                           {% if user.is_authenticated %}
+                                             <li class="text-light">User: <a href="{% url 'profile' %}">{{ user.get_username }}</a></li>
+                                             <li><a href="{% url 'logout'%}?next={{logout}}">Logout</a></li>
+                                           {% else %}
+                                             <li><a href="{% url 'sign_up'%}">Sign Up</a></li>
+                                             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                                           {% endif %}
+                                          </ul>
                                     </div>
                                     <div class="d-none d-lg-block">
                                         <a class="boxed-btn3" href="{% url 'add_job' %}">Post a Job</a>
@@ -95,8 +97,8 @@
     </header>
     <!-- header-end -->
 
-    {% block content %}
-    {% endblock content %}
+    {% block body %}
+    {% endblock body %}
 
     <!-- footer start -->
     <footer class="footer">

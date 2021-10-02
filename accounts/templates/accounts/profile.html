@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <!-- bradcam_area  -->
+    <div class="bradcam_area bradcam_bg_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text">
+                        <h3>Profile</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+
+    <div class="job_details_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="job_details_header">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb d-flex" style="width: 200px; height: 200px; background-color: #fff; border: none">
+                                    {% if profile.image %}
+                                        <img src="{{profile.image.url}}" alt="" style="max-width: 100%; border-radius: 50%">
+                                    {% else %}
+                                        <img src="{% static 'img/profile/profile_picture.png' %}" style="border-radius: 50%" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="jobs_conetent">
+                                    <h4>{{profile.user.username}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="job_sumary">
+                        <div class="job_content">
+                            <ul>
+                                <li>Username: <span>{{profile.user.username}}</span></li>
+                                <li>Full Name: <span>{{profile.user.first_name}} {{profile.user.last_name}}</span></li>
+                                <li>Email: <span>{{profile.user.email}}</span></li>
+                                <li>phone: <span>{{profile.phone_number}}</span></li>
+                                <li>Password: <a href="{% url 'password_change' %}" class="btn btn-success ml-1">Change Password</a></li>
+                                <li>City: <span> {{profile.city}}</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-3">
+                            <a href="{% url 'edit_profile' %}" class="boxed-btn3 w-100">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

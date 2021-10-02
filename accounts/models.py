@@ -1,3 +1,30 @@
+from django.contrib.auth.models import User
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+from location_field.models.plain import PlainLocationField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
+
+
+def upload_img(instance, filename):
+    image_name, extension = filename.split('.')
+    return f'images/accounts/profiles/{instance.user.username}.{extension}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=upload_img, null=True, blank=True)
+    phone_number = PhoneNumberField(region='EG', null=True, blank=True)
+    city = models.CharField(max_length=25, null=True, blank=True)  # TODO
+    location = PlainLocationField(based_fields=['city'], zoom=7, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)

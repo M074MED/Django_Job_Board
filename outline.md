@@ -14,7 +14,7 @@ Job :
     - post job
 
 
-Blog : 
+Blog :   >>> TODO
     - title
     - description 
     - created on

@@ -2,7 +2,7 @@
 {% load static %}
 {% load bootstrap5 %}
 
-{% block content %}
+{% block body %}
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_1">
         <div class="container">
@@ -28,7 +28,7 @@
                             {% bootstrap_form add_job_form %}
                             {% buttons %}
                             <div class="submit_btn mt-5">
-                                <button class="boxed-btn3 w-100" type="submit" name="apply">Post Now</button>
+                                <button class="boxed-btn3 w-100" type="submit" name="add_job">Post Now</button>
                             </div>
                             {% endbuttons %}
                         </form>
@@ -37,4 +37,4 @@
             </div>
         </div>
     </div>
-{% endblock content %}
+{% endblock body %}

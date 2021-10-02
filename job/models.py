@@ -23,6 +23,7 @@ class Job(models.Model):
     salary = models.IntegerField(default=0)
     experience = models.IntegerField(default=1)
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, blank=True)
+    # location  TODO
 
     # for url
     slug = models.SlugField(null=True, blank=True)
@@ -44,17 +45,19 @@ class Category(models.Model):
 
 def upload_cv(instance, filename):
     cv_name, extension = filename.split('.')
-    return f'apply/cvs/{instance.name}.{extension}'
+    return f'apply/cvs/{instance.first_name}_{instance.last_name}.{extension}'
 
 
 class Apply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     Job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     email = models.EmailField()
-    website = models.URLField(null=True, blank=True)
+    website = models.URLField(null=True, blank=True, verbose_name='Website/Portfolio link')
     cv = models.FileField(upload_to=upload_cv)
     cover_letter = models.TextField(max_length=500, null=True, blank=True)
     applied_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.first_name} {self.last_name}'
