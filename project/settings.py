@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'location_field',
     'django_filters',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
