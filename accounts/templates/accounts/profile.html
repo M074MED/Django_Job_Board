@@ -44,13 +44,14 @@
                                 <li>Username: <span>{{profile.user.username}}</span></li>
                                 <li>Full Name: <span>{{profile.user.first_name}} {{profile.user.last_name}}</span></li>
                                 <li>Email: <span>{{profile.user.email}}</span></li>
-                                <li>phone: <span>{{profile.phone_number}}</span></li>
+                                <li>Phone Number: <span>{{profile.phone_number}}</span></li>
                                 <li>Password: <a href="{% url 'password_change' %}" class="btn btn-success ml-1">Change Password</a></li>
                                 <li>City: <span> {{profile.city}}</span></li>
+                                <li>Token: <span> {{token}}</span></li>
                             </ul>
                         </div>
                         <div class="p-3">
-                            <a href="{% url 'edit_profile' %}" class="boxed-btn3 w-100">Edit</a>
+                            <a href="{% url 'accounts:edit_profile' %}" class="boxed-btn3 w-100">Edit</a>
                         </div>
                     </div>
                 </div>

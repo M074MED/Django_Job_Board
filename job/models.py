@@ -50,7 +50,7 @@ def upload_cv(instance, filename):
 
 class Apply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    Job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()

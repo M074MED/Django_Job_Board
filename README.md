@@ -11,7 +11,7 @@ Job Board Site with Django (Database: MySQL)
 #### My Technical Skills:
 ######  -Python
 ######  -Django
-######  -Django Rest Framework
+######  -Django Rest API Framework
 ######  -MySQL
 ######  -oop
 ######  -Web Scraping (with Python Beautiful Soup)
@@ -23,6 +23,7 @@ Job Board Site with Django (Database: MySQL)
 ######  -React JS
 ######  -C++
 ######  -Git & GitHub
+######  -JSON
 ######  -Command Line
 ######  -Linux
 

@@ -20,7 +20,7 @@ def contact(request):
             [settings.EMAIL_HOST_USER],
             fail_silently=False,
         )
-        return redirect('message_sent')
+        return redirect('contact:message_sent')
 
     return render(request, 'contact.html', {'info': info})
 

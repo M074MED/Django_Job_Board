@@ -20,12 +20,22 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    # Django URLs
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('jobs/', include('job.urls')),
-    path('contact/', include('contact.urls')),
+
+    # My URLs
+    path('', include('home.urls', namespace='home')),
+    path('jobs/', include('job.urls', namespace='job')),
+    path('contact/', include('contact.urls', namespace='contact')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
+
+    # My API URLs
     path('api-auth/', include('rest_framework.urls')),
+    path('api/jobs/', include('job.api.urls', namespace='job_api')),
+    path('api/contact/', include('contact.api.urls', namespace='contact_api')),
+    path('api/accounts/', include('accounts.api.urls', namespace='accounts_api')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +\
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
