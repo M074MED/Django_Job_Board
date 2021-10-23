@@ -12,6 +12,8 @@ from accounts.api.serializers import (
                                         ProfileSerializer,
                                         UserSerializer,
                                         SignUpSerializer,
+                                        PasswordChangeSerializer,
+                                        PasswordResetSerializer,
                                     )
 
 
@@ -24,7 +26,7 @@ def profile(request):
     data = {}
     user_serializer = UserSerializer(user)
     profile_serializer = ProfileSerializer(profile)
-    data['profile'] = [user_serializer.data, profile_serializer.data]
+    data['profile'] = {**user_serializer.data, **profile_serializer.data}
     token = get_object_or_404(Token, user=user).key
     data['token'] = token
     return Response(data)
@@ -70,3 +72,30 @@ def sign_up(request):
             data['token'] = token
             return Response(data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def password_change(request):
+    if request.method == 'PUT':
+        serializer = PasswordChangeSerializer(user=request.user, data=request.data)
+        data = {}
+        if serializer.is_valid():
+            serializer.save()
+            data['Response'] = 'The password has been changed!'
+            return Response(data)
+        return Response(serializer.errors)
+
+
+@api_view(['POST'])
+def password_reset(request):
+    if request.method == 'POST':
+        serializer = PasswordResetSerializer(data=request.data)
+        data = {}
+        if serializer.is_valid():
+            serializer.save(domain_override="127.0.0.1:8000")  # domain_override= the domain of the website
+            data['Response'] = "We've emailed you instructions for setting your password. " \
+                               "If they haven't arrived in a few minutes, check your spam folder."
+            return Response(data)
+        return Response(serializer.errors)

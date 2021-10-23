@@ -9,4 +9,6 @@ urlpatterns = [
     path('login', obtain_auth_token, name="login_api"),
     path('profile/', views.profile, name="profile_api"),
     path('profile/edit', views.edit_profile, name="edit_profile_api"),
+    path('profile/password_change', views.password_change, name="password_change_api"),
+    path('password_reset', views.password_reset, name="password_reset_api"),
 ]
