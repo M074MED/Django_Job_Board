@@ -20,6 +20,9 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    # Themes APP URL
+    path('grappelli/', include('grappelli.urls')),
+
     # Django URLs
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),

@@ -23,7 +23,7 @@ class Profile(models.Model):
     location = PlainLocationField(based_fields=['city'], zoom=7, null=True, blank=True)
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user}'
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

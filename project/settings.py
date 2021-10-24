@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'accounts',
     'contact',
 
+    # Themes APP
+    'grappelli',
+
     # Django APPs
     'django.contrib.admin',
     'django.contrib.auth',
@@ -172,6 +175,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     '/var/www/static/',
 ]
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+)
 
 
 # Media files
