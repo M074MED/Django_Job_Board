@@ -18,7 +18,7 @@ from accounts.api.serializers import (
 
 
 @api_view(['GET'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def profile(request):
     profile = get_object_or_404(Profile, user=request.user)
@@ -29,11 +29,11 @@ def profile(request):
     data['profile'] = {**user_serializer.data, **profile_serializer.data}
     token = get_object_or_404(Token, user=user).key
     data['token'] = token
-    return Response(data)
+    return Response(data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['PUT'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def edit_profile(request):
     profile = get_object_or_404(Profile, user=request.user)
@@ -47,7 +47,7 @@ def edit_profile(request):
             profile_serializer.save()
             data['Response'] = 'update successful'
             data['profile'] = [user_serializer.data, profile_serializer.data]
-            return Response(data)
+            return Response(data, status=status.HTTP_201_CREATED)
         elif not user_serializer.is_valid():
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -75,7 +75,7 @@ def sign_up(request):
 
 
 @api_view(['PUT'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def password_change(request):
     if request.method == 'PUT':
@@ -84,8 +84,8 @@ def password_change(request):
         if serializer.is_valid():
             serializer.save()
             data['Response'] = 'The password has been changed!'
-            return Response(data)
-        return Response(serializer.errors)
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -94,8 +94,8 @@ def password_reset(request):
         serializer = PasswordResetSerializer(data=request.data)
         data = {}
         if serializer.is_valid():
-            serializer.save(domain_override="127.0.0.1:8000")  # domain_override= the domain of the website
+            serializer.save(domain_override="jobboard.pythonanywhere.com")  # domain_override= the domain of the website
             data['Response'] = "We've emailed you instructions for setting your password. " \
                                "If they haven't arrived in a few minutes, check your spam folder."
-            return Response(data)
-        return Response(serializer.errors)
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
